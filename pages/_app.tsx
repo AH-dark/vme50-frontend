@@ -34,6 +34,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
             <Head>
                 <title>{title === null ? siteName : `${title} - ${siteName}`}</title>
                 <meta name="viewport" content="initial-scale=1, width=device-width" />
+                <meta name={"description"} content={siteInfo?.site_description} />
             </Head>
             <ThemeProvider theme={theme}>
                 <GlobalStyles

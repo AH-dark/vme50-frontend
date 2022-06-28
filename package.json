@@ -9,16 +9,19 @@
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.6",
     "@reduxjs/toolkit": "^1.8.2",
+    "@types/pangu": "^3.3.0",
     "axios": "^0.27.2",
     "dayjs": "^1.11.3",
     "next": "12.1.6",
     "next-redux-wrapper": "^7.0.5",
     "notistack": "^2.0.5",
+    "pangu": "^4.0.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-redux": "^8.0.2",
     "redux": "^4.2.0",
-    "redux-thunk": "^2.4.1"
+    "redux-thunk": "^2.4.1",
+    "sass": "^1.53.0"
   },
   "devDependencies": {
     "@types/node": "18.0.0",
@@ -35,5 +38,11 @@
     "start": "next start",
     "lint": "next lint",
     "export": "next build && next export"
-  }
+  },
+  "browserslist": [
+    ">0.3%",
+    "not ie 11",
+    "not dead",
+    "not op_mini all"
+  ]
 }
