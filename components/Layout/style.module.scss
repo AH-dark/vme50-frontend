@@ -1,0 +1,20 @@
+.root {
+  height: 100vh;
+  //noinspection CssInvalidPropertyValue
+  min-height: -webkit-fill-available;
+
+  display: flex;
+  flex-direction: column;
+
+  .appbar {
+    .title {
+      flex-grow: 1;
+      margin-left: 1rem;
+    }
+  }
+
+  .main {
+    flex-grow: 1;
+    position: relative;
+  }
+}
