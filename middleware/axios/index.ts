@@ -7,6 +7,10 @@ const getBaseUrl = () => {
         return "http://localhost:8080" + baseUrl;
     }
 
+    if (typeof process.env.NEXT_PUBLIC_API !== "undefined") {
+        return process.env.NEXT_PUBLIC_API + baseUrl;
+    }
+
     return baseUrl;
 };
 
