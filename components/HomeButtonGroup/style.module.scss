@@ -3,6 +3,14 @@
   width: 100%;
 }
 
+@mixin columnCenter {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
 .root {
   .gridItem {
     @include fullFill;
@@ -14,10 +22,7 @@
 
       .paper {
         @include fullFill;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        @include columnCenter;
 
         .icon {
           font-size: 4rem;
@@ -31,7 +36,7 @@
   }
 }
 
-.dialog {
+.uploadButtonDialog {
   .form {
     display: flex;
     flex-direction: column;
@@ -53,10 +58,7 @@
 
         .infoPart {
           height: inherit;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
+          @include columnCenter;
         }
       }
     }
@@ -64,5 +66,19 @@
 
   .actions {
     justify-content: space-between;
+  }
+}
+
+.donateButtonDialog {
+  .dialogContent {
+    @include columnCenter;
+
+    .card {
+      width: fit-content;
+
+      .pay {
+        @include columnCenter;
+      }
+    }
   }
 }

@@ -163,7 +163,7 @@ const UploadButton: React.FC = () => {
             <Dialog
                 open={open}
                 onClose={handleClose}
-                className={classes.dialog}
+                className={classes.uploadButtonDialog}
                 fullWidth={!isMobile}
                 fullScreen={isMobile}
             >

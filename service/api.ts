@@ -75,8 +75,20 @@ const api = createApi({
             }),
             invalidatesTags: ["DonateInfo"],
         }),
+        getRandomDonateInfo: builder.query<DonateInfoResponse, number>({
+            query: (prevId) => ({
+                url: "/donate/random",
+                method: "GET",
+                params: { prevId },
+            }),
+        }),
     }),
 });
 
-export const { usePingQuery, useGetSiteInfoQuery, usePostDonateInfoMutation } = api;
+export const {
+    usePingQuery,
+    useGetSiteInfoQuery,
+    usePostDonateInfoMutation,
+    useGetRandomDonateInfoQuery,
+} = api;
 export default api;
