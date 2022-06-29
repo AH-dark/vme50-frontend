@@ -1,8 +1,9 @@
 import { BaseQueryFn, createApi } from "@reduxjs/toolkit/query/react";
 import axios from "~/middleware/axios";
-import type { AxiosRequestConfig, AxiosError } from "axios";
-import type ResponseData from "~/model/api/ResponseData";
-import type SiteInfo from "~/model/api/siteInfo";
+import type { AxiosError, AxiosRequestConfig } from "axios";
+import type ResponseData from "~/model/response/responseData";
+import type SiteInfoResponse from "~/model/response/siteInfoResponse";
+import type DonateInfoResponse from "~/model/response/donateInfoResponse";
 
 const axiosBaseQuery: BaseQueryFn<{
     url: string;
@@ -20,13 +21,22 @@ const axiosBaseQuery: BaseQueryFn<{
             headers: headers,
         });
 
+        if (result.data.code !== 200) {
+            return {
+                error: {
+                    status: result.data.code,
+                    message: result.data.message,
+                },
+            };
+        }
+
         return { data: result.data.data };
     } catch (axiosError) {
         let err = axiosError as AxiosError<ResponseData>;
         return {
             error: {
                 status: err.response?.status,
-                data: err.response?.data.message || err.message,
+                message: err.response?.data.message || err.message,
             },
         };
     }
@@ -47,15 +57,26 @@ const api = createApi({
                 return true;
             },
         }),
-        getSiteInfo: builder.query<SiteInfo, void>({
+        getSiteInfo: builder.query<SiteInfoResponse, void>({
             query: () => ({
                 url: "/siteInfo",
                 method: "GET",
             }),
             providesTags: ["Setting"],
         }),
+        postDonateInfo: builder.mutation<DonateInfoResponse, FormData>({
+            query: (data) => ({
+                url: "/donate",
+                method: "POST",
+                data: data,
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            }),
+            invalidatesTags: ["DonateInfo"],
+        }),
     }),
 });
 
-export const { usePingQuery, useGetSiteInfoQuery } = api;
+export const { usePingQuery, useGetSiteInfoQuery, usePostDonateInfoMutation } = api;
 export default api;
