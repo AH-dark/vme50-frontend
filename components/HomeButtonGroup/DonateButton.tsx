@@ -28,8 +28,7 @@ import { QRCodeCanvas } from "qrcode.react";
 
 const DonateButton: React.FC = () => {
     const [open, setOpen] = useState(false);
-    const [prevId, setPrevId] = useState(0);
-    const { data, isLoading, refetch } = useGetRandomDonateInfoQuery(prevId);
+    const { data, isLoading, refetch } = useGetRandomDonateInfoQuery();
     const { data: siteInfoData } = useGetSiteInfoQuery();
 
     const handleClose = () => {
@@ -37,7 +36,6 @@ const DonateButton: React.FC = () => {
     };
 
     const handleRefresh = () => {
-        setPrevId(data?.ID || 0);
         refetch();
     };
 

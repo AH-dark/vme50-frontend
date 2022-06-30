@@ -75,11 +75,10 @@ const api = createApi({
             }),
             invalidatesTags: ["DonateInfo"],
         }),
-        getRandomDonateInfo: builder.query<DonateInfoResponse, number>({
-            query: (prevId) => ({
+        getRandomDonateInfo: builder.query<DonateInfoResponse, void>({
+            query: () => ({
                 url: "/donate/random",
                 method: "GET",
-                params: { prevId },
             }),
         }),
     }),
