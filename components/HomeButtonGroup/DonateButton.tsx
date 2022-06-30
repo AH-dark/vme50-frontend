@@ -5,6 +5,7 @@ import {
     Button,
     ButtonBase,
     Card,
+    CardActions,
     CardContent,
     CardHeader,
     CircularProgress,
@@ -101,6 +102,21 @@ const DonateButton: React.FC = () => {
                                     </Typography>
                                 </Stack>
                             </CardContent>
+                            {isMobile && (
+                                <CardActions>
+                                    <Button
+                                        href={data.url}
+                                        target={"_blank"}
+                                        fullWidth
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            window.open(data.url);
+                                        }}
+                                    >
+                                        {"捐赠"}
+                                    </Button>
+                                </CardActions>
+                            )}
                         </Card>
                     )}
                 </DialogContent>
