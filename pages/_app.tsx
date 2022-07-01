@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app";
 import React, { useMemo } from "react";
+import "flag-icons/css/flag-icons.css";
 import { GlobalStyles, ThemeProvider } from "@mui/material";
 import theme from "~/theme";
 import wrapper from "~/redux/wrapper";

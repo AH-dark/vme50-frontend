@@ -8,27 +8,37 @@ import { initReactI18next } from "react-i18next";
 const i18n = i18next
     .createInstance({
         debug: process.env.NODE_ENV === "development",
-        load: "languageOnly",
+        saveMissing: process.env.NODE_ENV === "development",
+        load: "currentOnly",
         defaultNS: "common",
+        fallbackNS: "common",
         ns: ["common", "title", "api", "payment"],
+        fallbackLng: "zh-cn",
         backend: {
             backends: [I18NextLocalStorageBackend, I18NextHttpBackend],
             backendOptions: [
                 {
-                    expirationTime: 7 * 24 * 60 * 60 * 1000, // 7 days
+                    expirationTime: 24 * 60 * 60 * 1000, // 1 days
                 },
                 {
                     loadPath: "/locales/{{lng}}/{{ns}}.json",
                 },
             ],
         },
-        fallbackNS: "common",
-        fallbackLng: "zh",
-        saveMissing: true,
+        supportedLngs: ["zh-CN", "en-US"],
     })
     .use(I18nextBrowserLanguageDetector)
     .use(I18NextChainedBackend)
     .use(initReactI18next);
+
+const languages: Record<string, string | undefined> = {
+    "zh-cn": "中文",
+    "en-us": "English",
+};
+
+export const getLanguageName = (lang: string) => {
+    return languages[lang.toLowerCase()] || lang;
+};
 
 i18n.init();
 
