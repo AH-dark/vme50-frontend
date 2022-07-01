@@ -33,6 +33,7 @@ import { usePostDonateInfoMutation } from "~/service/api";
 import { AxiosError } from "axios";
 import ResponseData from "~/model/response/responseData";
 import DonateInfoResponse from "~/model/response/donateInfoResponse";
+import { useTranslation } from "react-i18next";
 
 const accept = [".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp"];
 
@@ -45,6 +46,7 @@ const initData: DonateInfoRequest = {
 
 const UploadButton: React.FC = () => {
     const { enqueueSnackbar } = useSnackbar();
+    const { t } = useTranslation();
     const [postDonateInfo, { isLoading: isPosting }] = usePostDonateInfoMutation();
 
     const [open, setOpen] = useState(false);
@@ -85,14 +87,14 @@ const UploadButton: React.FC = () => {
     const handleSubmit = () => {
         // check data
         if (data.name === "" || data.email === "" || data.qrcode === null) {
-            enqueueSnackbar("参数不完整，请检查", {
+            enqueueSnackbar(t("参数不完整，请检查", { ns: "api" }), {
                 variant: "warning",
             });
             return;
         } else if (
             !RegExp("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$").test(data.email)
         ) {
-            enqueueSnackbar("邮箱格式不合法，请检查", {
+            enqueueSnackbar(t("邮箱格式不合法，请检查", { ns: "api" }), {
                 variant: "warning",
             });
             return;
@@ -109,7 +111,7 @@ const UploadButton: React.FC = () => {
             .unwrap()
             .then((r) => {
                 console.log(r);
-                enqueueSnackbar("上传成功", {
+                enqueueSnackbar(t("上传成功", { ns: "api" }), {
                     variant: "success",
                 });
                 handleClose();
@@ -139,7 +141,7 @@ const UploadButton: React.FC = () => {
         multiple: false,
         onError(err) {
             console.error(err);
-            enqueueSnackbar("上传失败", {
+            enqueueSnackbar(t("上传失败", { ns: "api" }), {
                 variant: "error",
             });
         },
@@ -156,7 +158,7 @@ const UploadButton: React.FC = () => {
                         }}
                     />
                     <Typography variant={"h5"} className={classes.text} component={"span"}>
-                        {"上传"}
+                        {t("上传")}
                     </Typography>
                 </Paper>
             </ButtonBase>
@@ -167,12 +169,12 @@ const UploadButton: React.FC = () => {
                 fullWidth={!isMobile}
                 fullScreen={isMobile}
             >
-                <DialogTitle>{"上传收款码"}</DialogTitle>
+                <DialogTitle>{t("上传收款码")}</DialogTitle>
                 <DialogContent>
                     <Stack spacing={2} component={"form"} className={classes.form}>
                         <TextField
                             variant={"standard"}
-                            label={"昵称"}
+                            label={t("昵称")}
                             value={data.name}
                             onChange={(e) => {
                                 setData({
@@ -186,7 +188,7 @@ const UploadButton: React.FC = () => {
                         />
                         <TextField
                             variant={"standard"}
-                            label={"邮箱"}
+                            label={t("邮箱")}
                             value={data.email}
                             onChange={(e) => {
                                 setData({
@@ -202,11 +204,11 @@ const UploadButton: React.FC = () => {
                                     "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$"
                                 ).test(data.email)
                             }
-                            helperText={"Gravatar 头像会使用邮箱地址生成"}
+                            helperText={t("Gravatar 头像会使用邮箱地址生成")}
                             required
                         />
                         <FormControl sx={{ pt: 1 }}>
-                            <FormLabel>{"收款方式"}</FormLabel>
+                            <FormLabel>{t("收款方式")}</FormLabel>
                             <RadioGroup
                                 row
                                 name="payment"
@@ -218,19 +220,17 @@ const UploadButton: React.FC = () => {
                                     });
                                 }}
                             >
-                                <FormControlLabel
-                                    value={"alipay"}
-                                    control={<Radio />}
-                                    label={"支付宝"}
-                                />
-                                <FormControlLabel
-                                    value={"wechat"}
-                                    control={<Radio />}
-                                    label={"微信支付"}
-                                />
+                                {["alipay", "wechat"].map((payment) => (
+                                    <FormControlLabel
+                                        key={payment}
+                                        value={payment}
+                                        control={<Radio />}
+                                        label={t(payment, { ns: "payment" })}
+                                    />
+                                ))}
                             </RadioGroup>
                             <FormControl sx={{ pt: 1 }}>
-                                <FormLabel>{"上传收款码"}</FormLabel>
+                                <FormLabel>{t("上传收款码")}</FormLabel>
                                 <Box {...getRootProps()} className={classes.uploader}>
                                     <input
                                         {...getInputProps()}
@@ -254,7 +254,7 @@ const UploadButton: React.FC = () => {
                                                         variant={"subtitle2"}
                                                         component={"span"}
                                                     >
-                                                        {"拖住文件至此或点击上传图片"}
+                                                        {t("拖动文件至此或点击上传图片")}
                                                     </Typography>
                                                 </>
                                             ) : (
@@ -269,7 +269,7 @@ const UploadButton: React.FC = () => {
                                     </ButtonBase>
                                 </Box>
                                 <FormHelperText sx={{ mx: 0.5 }}>
-                                    {"请上传有效的清晰地且与上方所选收款方式匹配的二维码"}
+                                    {t("请上传有效的清晰地且与上方所选收款方式匹配的二维码")}
                                 </FormHelperText>
                             </FormControl>
                         </FormControl>
@@ -278,23 +278,23 @@ const UploadButton: React.FC = () => {
                 {isMobile ? (
                     <DialogActions className={classes.actions}>
                         <Button onClick={handleReset} type={"reset"}>
-                            {"重置"}
+                            {t("重置")}
                         </Button>
                         <Box>
                             <Button onClick={handleClose}>{"关闭"}</Button>
                             <Button onClick={handleSubmit} type={"submit"}>
-                                {"提交"}
+                                {t("提交")}
                             </Button>
                         </Box>
                     </DialogActions>
                 ) : (
                     <DialogActions>
-                        <Button onClick={handleClose}>{"关闭"}</Button>
+                        <Button onClick={handleClose}>{t("关闭")}</Button>
                         <Button onClick={handleReset} type={"reset"}>
-                            {"重置"}
+                            {t("重置")}
                         </Button>
                         <LoadingButton onClick={handleSubmit} type={"submit"} loading={isPosting}>
-                            {"提交"}
+                            {t("提交")}
                         </LoadingButton>
                     </DialogActions>
                 )}

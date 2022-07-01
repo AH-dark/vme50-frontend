@@ -19,8 +19,11 @@ import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import { deepPurple } from "@mui/material/colors";
 import { useGetSiteInfoQuery } from "~/service/api";
 import Markdown from "~/components/Markdown";
+import { useTranslation } from "react-i18next";
 
 const AboutButton: React.FC = () => {
+    const { t } = useTranslation();
+
     const [open, setOpen] = useState(false);
     const handleClose = () => {
         setOpen(false);
@@ -47,12 +50,12 @@ const AboutButton: React.FC = () => {
                         }}
                     />
                     <Typography variant={"h5"} className={classes.text} component={"span"}>
-                        {"关于"}
+                        {t("关于")}
                     </Typography>
                 </Paper>
             </ButtonBase>
             <Dialog open={open} onClose={handleClose} fullScreen={isMobile} fullWidth={!isMobile}>
-                <DialogTitle>{"关于本站"}</DialogTitle>
+                <DialogTitle>{t("关于本站")}</DialogTitle>
                 <DialogContent
                     sx={{
                         minHeight: isMobile ? undefined : 160,
@@ -67,7 +70,7 @@ const AboutButton: React.FC = () => {
                     )}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>{"关闭"}</Button>
+                    <Button onClick={handleClose}>{t("关闭")}</Button>
                 </DialogActions>
             </Dialog>
         </>

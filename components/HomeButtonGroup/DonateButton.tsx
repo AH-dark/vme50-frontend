@@ -26,8 +26,11 @@ import { useGetRandomDonateInfoQuery, useGetSiteInfoQuery } from "~/service/api"
 import { getGravatar } from "~/utils/gravatar";
 import dayjs from "dayjs";
 import { QRCodeCanvas } from "qrcode.react";
+import { useTranslation } from "react-i18next";
 
 const DonateButton: React.FC = () => {
+    const { t } = useTranslation();
+
     const [open, setOpen] = useState(false);
     const { data, isLoading, refetch } = useGetRandomDonateInfoQuery();
     const { data: siteInfoData } = useGetSiteInfoQuery();
@@ -60,7 +63,7 @@ const DonateButton: React.FC = () => {
                         }}
                     />
                     <Typography variant={"h5"} className={classes.text} component={"span"}>
-                        {"随机打赏"}
+                        {t("随机打赏")}
                     </Typography>
                 </Paper>
             </ButtonBase>
@@ -71,7 +74,7 @@ const DonateButton: React.FC = () => {
                 fullWidth={!isMobile}
                 className={classes.donateButtonDialog}
             >
-                <DialogTitle>{"您找到了有缘人，快赞赏他吧"}</DialogTitle>
+                <DialogTitle>{t("您找到了有缘人，快赞赏他吧")}</DialogTitle>
                 <DialogContent className={classes.dialogContent}>
                     {isLoading || typeof data === "undefined" ? (
                         <CircularProgress />
@@ -98,7 +101,9 @@ const DonateButton: React.FC = () => {
                                 <Stack spacing={2} className={classes.pay}>
                                     <QRCodeCanvas value={data.url} />
                                     <Typography variant={"h6"} component={"span"}>
-                                        {"请使用 " + data.payment + " 支付"}
+                                        {t("请使用 {{payment}} 支付", {
+                                            payment: t(data.payment, { ns: "payment" }),
+                                        })}
                                     </Typography>
                                 </Stack>
                             </CardContent>
@@ -113,7 +118,7 @@ const DonateButton: React.FC = () => {
                                             window.open(data.url);
                                         }}
                                     >
-                                        {"捐赠"}
+                                        {t("捐赠")}
                                     </Button>
                                 </CardActions>
                             )}
@@ -121,9 +126,9 @@ const DonateButton: React.FC = () => {
                     )}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>{"关闭"}</Button>
+                    <Button onClick={handleClose}>{t("关闭")}</Button>
                     <Button type={"reset"} onClick={handleRefresh}>
-                        {"刷新"}
+                        {t("刷新")}
                     </Button>
                 </DialogActions>
             </Dialog>

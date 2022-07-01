@@ -1,0 +1,20 @@
+{
+  "昵称": "Nickname",
+  "邮箱": "Email",
+  "关闭": "Close",
+  "重置": "Reset",
+  "提交": "Submit",
+  "上传": "Upload",
+  "上传收款码": "Upload payment qrcode",
+  "Gravatar 头像会使用邮箱地址生成": "Gravatar avatars are generated using email addresses",
+  "拖动文件至此或点击上传图片": "Drag the file here or click to upload",
+  "请上传有效的清晰地且与上方所选收款方式匹配的二维码": "Please upload a valid and clear QR code that matches the payment method selected above",
+  "随机打赏": "Random reward",
+  "您找到了有缘人，快赞赏他吧": "You have found someone who is destined, please praise him",
+  "请使用 {{payment}} 支付": "Please pay with {{payment}}",
+  "捐赠": "Donate",
+  "刷新": "Refresh",
+  "关于": "About",
+  "关于本站": "About us",
+  "收款方式": "Payment"
+}
