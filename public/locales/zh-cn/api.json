@@ -1,4 +1,8 @@
 {
+  "success": "响应成功",
   "Internal Server Error": "内部服务器错误",
-  "上传成功": "上传成功"
+  "上传成功": "上传成功",
+  "qrcode is not legal": "二维码不合法",
+  "payment is not legal": "支付方式不合法",
+  "data is exist": "数据已存在"
 }
