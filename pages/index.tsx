@@ -12,17 +12,13 @@ import pangu from "pangu";
 const Home: NextPage = () => {
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        dispatch(setTitle("Home"));
-    }, [dispatch]);
-
     const { data: siteInfo } = useGetSiteInfoQuery();
-
+    
     return (
         <Layout className={classes.root}>
             <Container maxWidth={"lg"} className={classes.container}>
                 <Typography variant={"h2"} component={"h1"} className={classes.title}>
-                    {pangu.spacing(siteInfo?.site_name || "")}
+                    {pangu.spacing(siteInfo?.site_name || "v我50")}
                 </Typography>
                 <HomeButtonGroup />
             </Container>
