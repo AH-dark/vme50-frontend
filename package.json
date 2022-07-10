@@ -14,7 +14,7 @@
     "clsx": "^1.1.1",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.3",
-    "flag-icons": "^6.6.2",
+    "flag-icons": "^6.6.3",
     "i18next": "^21.8.11",
     "i18next-browser-languagedetector": "^6.1.4",
     "i18next-chained-backend": "^3.0.2",
