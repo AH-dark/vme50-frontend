@@ -26,11 +26,8 @@ import { useGetRandomDonateInfoQuery, useGetSiteInfoQuery } from "~/service/api"
 import { getGravatar } from "~/utils/gravatar";
 import dayjs from "dayjs";
 import { QRCodeCanvas } from "qrcode.react";
-import { useTranslation } from "react-i18next";
 
 const DonateButton: React.FC = () => {
-    const { t } = useTranslation();
-
     const [open, setOpen] = useState(false);
     const { data, isLoading, refetch } = useGetRandomDonateInfoQuery();
     const { data: siteInfoData } = useGetSiteInfoQuery();
@@ -63,7 +60,7 @@ const DonateButton: React.FC = () => {
                         }}
                     />
                     <Typography variant={"h5"} className={classes.text} component={"span"}>
-                        {t("随机打赏")}
+                        {"随机打赏"}
                     </Typography>
                 </Paper>
             </ButtonBase>
@@ -74,24 +71,13 @@ const DonateButton: React.FC = () => {
                 fullWidth={!isMobile}
                 className={classes.donateButtonDialog}
             >
-                <DialogTitle>{t("您找到了有缘人，快赞赏他吧")}</DialogTitle>
+                <DialogTitle>{"快V他50吧"}</DialogTitle>
                 <DialogContent className={classes.dialogContent}>
                     {isLoading || typeof data === "undefined" ? (
                         <CircularProgress />
                     ) : (
                         <Card className={classes.card}>
                             <CardHeader
-                                avatar={
-                                    <Avatar
-                                        alt={data?.name}
-                                        src={getGravatar(
-                                            siteInfoData?.gravatar_origin ||
-                                                "www.gravatar.com/avatar/",
-                                            data.email
-                                        )}
-                                        aria-label={"avatar"}
-                                    />
-                                }
                                 title={data?.name}
                                 subheader={`Uploaded on ${dayjs(data.CreatedAt).format(
                                     "YYYY/MM/DD HH:mm"
@@ -101,9 +87,10 @@ const DonateButton: React.FC = () => {
                                 <Stack spacing={2} className={classes.pay}>
                                     <QRCodeCanvas value={data.url} />
                                     <Typography variant={"h6"} component={"span"}>
-                                        {t("请使用 {{payment}} 支付", {
-                                            payment: t(data.payment, { ns: "payment" }),
-                                        })}
+                                        {"请使用 " + data.payment + " 支付"}
+                                    </Typography>
+                                    <Typography variant={"h6"} component={"span"}>
+                                        {"留言:" + data.message}
                                     </Typography>
                                 </Stack>
                             </CardContent>
@@ -118,7 +105,7 @@ const DonateButton: React.FC = () => {
                                             window.open(data.url);
                                         }}
                                     >
-                                        {t("捐赠")}
+                                        {"捐赠"}
                                     </Button>
                                 </CardActions>
                             )}
@@ -126,9 +113,9 @@ const DonateButton: React.FC = () => {
                     )}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>{t("关闭")}</Button>
+                    <Button onClick={handleClose}>{"关闭"}</Button>
                     <Button type={"reset"} onClick={handleRefresh}>
-                        {t("刷新")}
+                        {"刷新"}
                     </Button>
                 </DialogActions>
             </Dialog>
