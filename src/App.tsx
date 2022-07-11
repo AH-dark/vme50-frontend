@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useGetSiteInfoQuery } from "services/api";
 import { useAppSelector } from "redux/hooks";
 import { Route, Switch } from "react-router-dom";
-import Home from "components/Home";
+import Homepage from "components/Homepage";
 
 const App: React.FC = () => {
     const { t } = useTranslation("title");
@@ -21,7 +21,7 @@ const App: React.FC = () => {
     return (
         <Switch>
             <Route path={"/"} exact>
-                <Home />
+                <Homepage />
             </Route>
         </Switch>
     );

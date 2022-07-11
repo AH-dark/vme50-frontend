@@ -26,6 +26,7 @@ import { useGetRandomDonateInfoQuery } from "services/api";
 import dayjs from "dayjs";
 import { QRCodeCanvas } from "qrcode.react";
 import { useTranslation } from "react-i18next";
+import clsx from "clsx";
 
 const DonateButton: React.FC = () => {
     const { t } = useTranslation();
@@ -47,7 +48,7 @@ const DonateButton: React.FC = () => {
     return (
         <>
             <ButtonBase
-                className={classes.buttonBase}
+                className={clsx("donateButton", classes.buttonBase)}
                 onClick={(e) => {
                     e.preventDefault();
                     setOpen(true);

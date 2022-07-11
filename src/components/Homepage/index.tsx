@@ -7,8 +7,9 @@ import pangu from "pangu";
 import { useAppDispatch } from "redux/hooks";
 import { setTitle } from "redux/reducer/viewUpdate";
 import { useGetSiteInfoQuery } from "services/api";
+import clsx from "clsx";
 
-const Home: React.FC = () => {
+const Homepage: React.FC = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -19,8 +20,12 @@ const Home: React.FC = () => {
 
     return (
         <Layout className={classes.root}>
-            <Container maxWidth={"lg"} className={classes.container}>
-                <Typography variant={"h2"} component={"h1"} className={classes.title}>
+            <Container maxWidth={"lg"} className={clsx("home", classes.container)}>
+                <Typography
+                    variant={"h2"}
+                    component={"h1"}
+                    className={clsx("title", classes.title)}
+                >
                     {pangu.spacing(siteInfo?.site_name || "")}
                 </Typography>
                 <HomeButtonGroup />
@@ -29,4 +34,4 @@ const Home: React.FC = () => {
     );
 };
 
-export default Home;
+export default Homepage;

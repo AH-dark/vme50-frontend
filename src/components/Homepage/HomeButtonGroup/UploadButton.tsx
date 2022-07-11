@@ -34,6 +34,7 @@ import type DonateInfoResponse from "model/response/donateInfoResponse";
 import UploadFileRoundedIcon from "@mui/icons-material/UploadFileRounded";
 import { usePostDonateInfoMutation } from "services/api";
 import { AxiosError } from "axios";
+import clsx from "clsx";
 
 const accept = [".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp"];
 
@@ -149,7 +150,7 @@ const UploadButton: React.FC = () => {
 
     return (
         <>
-            <ButtonBase className={classes.buttonBase} onClick={handleClick}>
+            <ButtonBase className={clsx("uploadButton", classes.buttonBase)} onClick={handleClick}>
                 <Paper className={classes.paper}>
                     <UploadRoundedIcon
                         className={classes.icon}
