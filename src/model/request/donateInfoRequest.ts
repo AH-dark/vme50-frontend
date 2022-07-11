@@ -1,6 +1,7 @@
-import DonateInfo from "../base/donateInfo";
-import GormModel from "../base/gormModel";
+import DonateInfo from "model/base/donateInfo";
+import GormModel from "model/base/gormModel";
 
-export default interface DonateInfoRequest extends Omit<DonateInfo, "url" | keyof GormModel> {
+export default interface DonateInfoRequest
+    extends Omit<DonateInfo, "url" | "payment" | keyof GormModel> {
     qrcode: File | null;
 }

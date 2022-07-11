@@ -9,12 +9,9 @@ import {
     DialogContent,
     DialogTitle,
     FormControl,
-    FormControlLabel,
     FormHelperText,
     FormLabel,
     Paper,
-    Radio,
-    RadioGroup,
     Stack,
     TextField,
     Theme,
@@ -41,7 +38,6 @@ const accept = [".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp"];
 
 const initData: DonateInfoRequest = {
     name: "",
-    payment: "alipay",
     comment: "",
     qrcode: null,
     author: 0,
@@ -106,7 +102,6 @@ const UploadButton: React.FC = () => {
         const formData = new FormData();
         formData.append("name", data.name);
         formData.append("comment", data.comment);
-        formData.append("payment", data.payment);
         formData.append("qrcode", data.qrcode);
 
         // api post
@@ -209,70 +204,47 @@ const UploadButton: React.FC = () => {
                             helperText={t("捐赠者可以看到留言信息，请尽情发挥你的文学功底！")}
                         />
                         <FormControl sx={{ pt: 1 }}>
-                            <FormLabel>{t("收款方式")}</FormLabel>
-                            <RadioGroup
-                                row
-                                name="payment"
-                                value={data.payment}
-                                onChange={(e) => {
-                                    setData({
-                                        ...data,
-                                        payment: e.target.value,
-                                    });
-                                }}
-                            >
-                                {["alipay", "wechat"].map((payment) => (
-                                    <FormControlLabel
-                                        key={payment}
-                                        value={payment}
-                                        control={<Radio />}
-                                        label={t(payment, { ns: "payment" })}
-                                    />
-                                ))}
-                            </RadioGroup>
-                            <FormControl sx={{ pt: 1 }}>
-                                <FormLabel>{t("上传收款码")}</FormLabel>
-                                <Box {...getRootProps()} className={classes.uploader}>
-                                    <input
-                                        {...getInputProps()}
-                                        className={classes.input}
-                                        type={"file"}
-                                        accept={accept.join(",")}
-                                        ref={inputRef}
-                                    />
-                                    <ButtonBase
-                                        className={classes.button}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            openUploadWindow();
-                                        }}
-                                    >
-                                        <Stack spacing={1} className={classes.infoPart}>
-                                            {data.qrcode === null ? (
-                                                <>
-                                                    <UploadFileRoundedIcon />
-                                                    <Typography
-                                                        variant={"subtitle2"}
-                                                        component={"span"}
-                                                    >
-                                                        {t("拖动文件至此或点击上传图片")}
-                                                    </Typography>
-                                                </>
-                                            ) : (
-                                                <Box
-                                                    component={"img"}
-                                                    src={fileUrl}
-                                                    height={"100%"}
-                                                    paddingY={2}
-                                                />
-                                            )}
-                                        </Stack>
-                                    </ButtonBase>
-                                </Box>
-                                <FormHelperText sx={{ mx: 0.5 }}>
-                                    {t("请上传有效的清晰地且与上方所选收款方式匹配的二维码")}
-                                </FormHelperText>
-                            </FormControl>
+                            <FormLabel>{t("上传收款码")}</FormLabel>
+                            <Box {...getRootProps()} className={classes.uploader}>
+                                <input
+                                    {...getInputProps()}
+                                    className={classes.input}
+                                    type={"file"}
+                                    accept={accept.join(",")}
+                                    ref={inputRef}
+                                />
+                                <ButtonBase
+                                    className={classes.button}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        openUploadWindow();
+                                    }}
+                                >
+                                    <Stack spacing={1} className={classes.infoPart}>
+                                        {data.qrcode === null ? (
+                                            <>
+                                                <UploadFileRoundedIcon />
+                                                <Typography
+                                                    variant={"subtitle2"}
+                                                    component={"span"}
+                                                >
+                                                    {t("拖动文件至此或点击上传图片")}
+                                                </Typography>
+                                            </>
+                                        ) : (
+                                            <Box
+                                                component={"img"}
+                                                src={fileUrl}
+                                                height={"100%"}
+                                                paddingY={2}
+                                            />
+                                        )}
+                                    </Stack>
+                                </ButtonBase>
+                            </Box>
+                            <FormHelperText sx={{ mx: 0.5 }}>
+                                {t("请上传有效的清晰地且与上方所选收款方式匹配的二维码")}
+                            </FormHelperText>
                         </FormControl>
                     </Stack>
                 </DialogContent>
