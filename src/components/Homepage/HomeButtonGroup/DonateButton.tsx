@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import classes from "./style.module.scss";
 import {
     Avatar,
@@ -23,7 +23,7 @@ import {
 } from "@mui/material";
 import AttachMoneyRoundedIcon from "@mui/icons-material/AttachMoneyRounded";
 import { green } from "@mui/material/colors";
-import { useGetRandomDonateInfoQuery } from "services/api";
+import { useGetDonateInfoQuery, useGetRandomDonateHashQuery } from "services/api";
 import dayjs from "dayjs";
 import { QRCodeCanvas } from "qrcode.react";
 import { useTranslation } from "react-i18next";
@@ -33,7 +33,12 @@ const DonateButton: React.FC = () => {
     const { t, i18n } = useTranslation();
 
     const [open, setOpen] = useState(false);
-    const { data, isLoading, refetch } = useGetRandomDonateInfoQuery();
+    const { data: hash, isLoading: isGettingHash, refetch } = useGetRandomDonateHashQuery();
+    const { data, isLoading: isGettingInfo } = useGetDonateInfoQuery(hash || "");
+    const isLoading = useMemo<boolean>(
+        () => isGettingHash || isGettingInfo,
+        [isGettingHash, isGettingInfo]
+    );
 
     const handleClose = () => {
         setOpen(false);
