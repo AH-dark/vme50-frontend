@@ -13,6 +13,7 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
+    Divider,
     Paper,
     Stack,
     Theme,
@@ -29,7 +30,7 @@ import { useTranslation } from "react-i18next";
 import clsx from "clsx";
 
 const DonateButton: React.FC = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
 
     const [open, setOpen] = useState(false);
     const { data, isLoading, refetch } = useGetRandomDonateInfoQuery();
@@ -74,19 +75,32 @@ const DonateButton: React.FC = () => {
                 fullWidth={!isMobile}
                 keepMounted
             >
-                <DialogTitle>{t("您找到了有缘人，快赞赏他吧")}</DialogTitle>
+                <DialogTitle>{t("快V他50吧")}</DialogTitle>
                 <DialogContent className={classes.dialogContent}>
                     {isLoading || typeof data === "undefined" ? (
                         <CircularProgress />
                     ) : (
                         <Card className={classes.card}>
                             <CardHeader
-                                avatar={<Avatar alt={data?.name} aria-label={"avatar"} />}
+                                avatar={
+                                    <Avatar alt={data?.name} aria-label={"avatar"}>
+                                        {data?.name[0]}
+                                    </Avatar>
+                                }
                                 title={data?.name}
-                                subheader={`Uploaded on ${dayjs(data.CreatedAt).format(
-                                    "YYYY/MM/DD HH:mm"
-                                )}`}
+                                subheader={t(`Uploaded on {{date}}`, {
+                                    date: dayjs(data.CreatedAt)
+                                        .locale(i18n.language)
+                                        .format("YYYY-MM-DD HH:mm:ss"),
+                                })}
                             />
+                            <Divider />
+                            {data.comment.length > 0 && (
+                                <>
+                                    <CardContent>{data.comment}</CardContent>
+                                    <Divider />
+                                </>
+                            )}
                             <CardContent>
                                 <Stack spacing={2} className={classes.pay}>
                                     <QRCodeCanvas value={data.url} />

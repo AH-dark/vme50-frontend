@@ -4,6 +4,7 @@ import { useGetSiteInfoQuery } from "services/api";
 import { useAppSelector } from "redux/hooks";
 import { Route, Switch } from "react-router-dom";
 import Homepage from "components/Homepage";
+import DonatePage from "./components/DonatePage";
 
 const App: React.FC = () => {
     const { t } = useTranslation("title");
@@ -22,6 +23,9 @@ const App: React.FC = () => {
         <Switch>
             <Route path={"/"} exact>
                 <Homepage />
+            </Route>
+            <Route path={"/donate/:id"} exact>
+                <DonatePage />
             </Route>
         </Switch>
     );
