@@ -39,9 +39,10 @@ const accept = [".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp"];
 
 const initData: DonateInfoRequest = {
     name: "",
-    email: "",
     payment: "alipay",
+    comment: "",
     qrcode: null,
+    author: 0,
 };
 
 const UploadButton: React.FC = () => {
@@ -86,15 +87,14 @@ const UploadButton: React.FC = () => {
 
     const handleSubmit = () => {
         // check data
-        if (data.name === "" || data.email === "" || data.qrcode === null) {
+        if (data.name === "" || data.qrcode === null) {
             enqueueSnackbar(t("参数不完整，请检查", { ns: "api" }), {
                 variant: "warning",
             });
             return;
-        } else if (
-            !RegExp("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$").test(data.email)
-        ) {
-            enqueueSnackbar(t("邮箱格式不合法，请检查", { ns: "api" }), {
+        }
+        if (data.comment.length >= 256) {
+            enqueueSnackbar(t("留言长度过长", { ns: "api" }), {
                 variant: "warning",
             });
             return;
@@ -102,7 +102,7 @@ const UploadButton: React.FC = () => {
 
         const formData = new FormData();
         formData.append("name", data.name);
-        formData.append("email", data.email);
+        formData.append("comment", data.comment);
         formData.append("payment", data.payment);
         formData.append("qrcode", data.qrcode);
 
@@ -119,7 +119,7 @@ const UploadButton: React.FC = () => {
             .catch((err) => {
                 const error = err as AxiosError<ResponseData<DonateInfoResponse>>;
                 console.error(error);
-                enqueueSnackbar(error.response?.data.message || error.message, {
+                enqueueSnackbar(t(error.response?.data.message || error.message, { ns: "api" }), {
                     variant: "error",
                 });
             });
@@ -188,24 +188,20 @@ const UploadButton: React.FC = () => {
                         />
                         <TextField
                             variant={"standard"}
-                            label={t("邮箱")}
-                            value={data.email}
+                            label={t("留言")}
+                            value={data.comment}
                             onChange={(e) => {
                                 setData({
                                     ...data,
-                                    email: e.target.value,
+                                    comment: e.target.value,
                                 });
                             }}
-                            autoComplete={"email"}
-                            type={"email"}
-                            error={
-                                data.email !== "" &&
-                                !RegExp(
-                                    "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$"
-                                ).test(data.email)
-                            }
-                            helperText={t("Gravatar 头像会使用邮箱地址生成")}
-                            required
+                            multiline
+                            rows={isMobile ? 3 : 5}
+                            autoComplete={"comment"}
+                            type={"text"}
+                            error={data.comment.length >= 256}
+                            helperText={t("捐赠者可以看到留言信息，请尽情发挥你的文学功底！")}
                         />
                         <FormControl sx={{ pt: 1 }}>
                             <FormLabel>{t("收款方式")}</FormLabel>

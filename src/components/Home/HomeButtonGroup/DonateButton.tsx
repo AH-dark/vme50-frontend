@@ -22,8 +22,7 @@ import {
 } from "@mui/material";
 import AttachMoneyRoundedIcon from "@mui/icons-material/AttachMoneyRounded";
 import { green } from "@mui/material/colors";
-import { useGetRandomDonateInfoQuery, useGetSiteInfoQuery } from "services/api";
-import { getGravatar } from "utils/gravatar";
+import { useGetRandomDonateInfoQuery } from "services/api";
 import dayjs from "dayjs";
 import { QRCodeCanvas } from "qrcode.react";
 import { useTranslation } from "react-i18next";
@@ -33,7 +32,6 @@ const DonateButton: React.FC = () => {
 
     const [open, setOpen] = useState(false);
     const { data, isLoading, refetch } = useGetRandomDonateInfoQuery();
-    const { data: siteInfoData } = useGetSiteInfoQuery();
 
     const handleClose = () => {
         setOpen(false);
@@ -81,17 +79,7 @@ const DonateButton: React.FC = () => {
                     ) : (
                         <Card className={classes.card}>
                             <CardHeader
-                                avatar={
-                                    <Avatar
-                                        alt={data?.name}
-                                        src={getGravatar(
-                                            siteInfoData?.gravatar_origin ||
-                                                "www.gravatar.com/avatar/",
-                                            data.email
-                                        )}
-                                        aria-label={"avatar"}
-                                    />
-                                }
+                                avatar={<Avatar alt={data?.name} aria-label={"avatar"} />}
                                 title={data?.name}
                                 subheader={`Uploaded on ${dayjs(data.CreatedAt).format(
                                     "YYYY/MM/DD HH:mm"

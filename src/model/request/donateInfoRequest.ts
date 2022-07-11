@@ -1,6 +1,6 @@
-export default interface DonateInfoRequest {
-    name: string;
-    email: string;
-    payment: "wechat" | "alipay" | string;
+import DonateInfo from "../base/donateInfo";
+import GormModel from "../base/gormModel";
+
+export default interface DonateInfoRequest extends Omit<DonateInfo, "url" | keyof GormModel> {
     qrcode: File | null;
 }
