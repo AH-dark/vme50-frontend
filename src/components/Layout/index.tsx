@@ -3,12 +3,13 @@ import classes from "./style.module.scss";
 import { Box, CssBaseline } from "@mui/material";
 import clsx from "clsx";
 import LanguageSwitchMenu from "./LanguageSwitchMenu";
+import Navbar from "./Navbar";
 
 const Layout: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, className }) => {
     return (
-        <Box className={classes.root}>
+        <Box className={clsx("layout-root", classes.root)}>
             <CssBaseline />
-            {/* 由于傻逼甲方的要求，去掉了：<Navbar /> */}
+            <Navbar />
             <main className={clsx(classes.main, className)}>{children}</main>
             <LanguageSwitchMenu />
         </Box>

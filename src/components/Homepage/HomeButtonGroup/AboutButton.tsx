@@ -20,6 +20,7 @@ import { deepPurple } from "@mui/material/colors";
 import { useGetSiteInfoQuery } from "services/api";
 import Markdown from "components/Markdown";
 import { useTranslation } from "react-i18next";
+import clsx from "clsx";
 
 const AboutButton: React.FC = () => {
     const { t } = useTranslation();
@@ -37,7 +38,7 @@ const AboutButton: React.FC = () => {
     return (
         <>
             <ButtonBase
-                className={classes.buttonBase}
+                className={clsx("aboutButton", classes.buttonBase)}
                 onClick={() => {
                     setOpen(true);
                 }}
@@ -54,7 +55,13 @@ const AboutButton: React.FC = () => {
                     </Typography>
                 </Paper>
             </ButtonBase>
-            <Dialog open={open} onClose={handleClose} fullScreen={isMobile} fullWidth={!isMobile}>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                fullScreen={isMobile}
+                fullWidth={!isMobile}
+                keepMounted
+            >
                 <DialogTitle>{t("关于本站")}</DialogTitle>
                 <DialogContent
                     sx={{

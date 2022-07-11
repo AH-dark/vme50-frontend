@@ -18,7 +18,8 @@ const i18n = i18next
             backends: [I18NextLocalStorageBackend, I18NextHttpBackend],
             backendOptions: [
                 {
-                    expirationTime: 24 * 60 * 60 * 1000, // 1 days
+                    expirationTime:
+                        process.env.NODE_ENV === "development" ? 0 : 24 * 60 * 60 * 1000, // 1 days
                 },
                 {
                     loadPath: "/locales/{{lng}}/{{ns}}.json",

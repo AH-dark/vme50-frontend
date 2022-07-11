@@ -37,6 +37,8 @@
 }
 
 .uploadButtonDialog {
+  max-width: 100vw;
+
   .form {
     display: flex;
     flex-direction: column;
@@ -72,13 +74,5 @@
 .donateButtonDialog {
   .dialogContent {
     @include columnCenter;
-
-    .card {
-      width: fit-content;
-
-      .pay {
-        @include columnCenter;
-      }
-    }
   }
 }

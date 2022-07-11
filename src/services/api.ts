@@ -47,47 +47,56 @@ const api = createApi({
     baseQuery: axiosBaseQuery,
     refetchOnReconnect: true,
     tagTypes: ["Setting", "DonateInfo"],
-    endpoints: (builder) => ({
-        ping: builder.query<boolean, void>({
-            query: () => ({
-                url: "/ping",
-                method: "GET",
-            }),
-            transformResponse() {
-                return true;
-            },
-        }),
-        getSiteInfo: builder.query<SiteInfoResponse, void>({
-            query: () => ({
-                url: "/siteInfo",
-                method: "GET",
-            }),
-            providesTags: ["Setting"],
-        }),
-        postDonateInfo: builder.mutation<DonateInfoResponse, FormData>({
-            query: (data) => ({
-                url: "/donate",
-                method: "POST",
-                data: data,
-                headers: {
-                    "Content-Type": "multipart/form-data",
+    endpoints: (builder) => {
+        return {
+            ping: builder.query<boolean, void>({
+                query: () => ({
+                    url: "/ping",
+                    method: "GET",
+                }),
+                transformResponse() {
+                    return true;
                 },
             }),
-            invalidatesTags: ["DonateInfo"],
-        }),
-        getRandomDonateInfo: builder.query<DonateInfoResponse, void>({
-            query: () => ({
-                url: "/donate/random",
-                method: "GET",
+            getSiteInfo: builder.query<SiteInfoResponse, void>({
+                query: () => ({
+                    url: "/siteInfo",
+                    method: "GET",
+                }),
+                providesTags: ["Setting"],
             }),
-        }),
-    }),
+            postDonateInfo: builder.mutation<string, FormData>({
+                query: (data) => ({
+                    url: "/donate",
+                    method: "POST",
+                    data: data,
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }),
+                invalidatesTags: ["DonateInfo"],
+            }),
+            getRandomDonateHash: builder.query<string, void>({
+                query: () => ({
+                    url: "/donate/random",
+                    method: "GET",
+                }),
+            }),
+            getDonateInfo: builder.query<DonateInfoResponse, string>({
+                query: (hash) => ({
+                    url: "/donate/hash/" + hash,
+                    method: "GET",
+                }),
+            }),
+        };
+    },
 });
 
 export const {
     usePingQuery,
     useGetSiteInfoQuery,
     usePostDonateInfoMutation,
-    useGetRandomDonateInfoQuery,
+    useGetRandomDonateHashQuery,
+    useGetDonateInfoQuery,
 } = api;
 export default api;
