@@ -1,21 +1,14 @@
 import React, { useMemo, useState } from "react";
 import classes from "./style.module.scss";
 import {
-    Avatar,
     Button,
     ButtonBase,
-    Card,
-    CardActions,
-    CardContent,
-    CardHeader,
     CircularProgress,
     Dialog,
     DialogActions,
     DialogContent,
     DialogTitle,
-    Divider,
     Paper,
-    Stack,
     Theme,
     Typography,
     useMediaQuery,
@@ -24,13 +17,14 @@ import {
 import AttachMoneyRoundedIcon from "@mui/icons-material/AttachMoneyRounded";
 import { green } from "@mui/material/colors";
 import { useGetDonateInfoQuery, useGetRandomDonateHashQuery } from "services/api";
-import dayjs from "dayjs";
-import { QRCodeCanvas } from "qrcode.react";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
+import DonateCard from "components/DonateCard";
+import { useHistory } from "react-router-dom";
 
 const DonateButton: React.FC = () => {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
+    const history = useHistory();
 
     const [open, setOpen] = useState(false);
     const { data: hash, isLoading: isGettingHash, refetch } = useGetRandomDonateHashQuery();
@@ -46,6 +40,10 @@ const DonateButton: React.FC = () => {
 
     const handleRefresh = () => {
         refetch();
+    };
+
+    const handleDetail = () => {
+        history.push("/donate/" + hash);
     };
 
     const theme = useTheme<Theme>();
@@ -85,60 +83,13 @@ const DonateButton: React.FC = () => {
                     {isLoading || typeof data === "undefined" ? (
                         <CircularProgress />
                     ) : (
-                        <Card className={classes.card}>
-                            <CardHeader
-                                avatar={
-                                    <Avatar alt={data?.name} aria-label={"avatar"}>
-                                        {data?.name[0]}
-                                    </Avatar>
-                                }
-                                title={data?.name}
-                                subheader={t(`Uploaded on {{date}}`, {
-                                    date: dayjs(data.CreatedAt)
-                                        .locale(i18n.language)
-                                        .format("YYYY-MM-DD HH:mm:ss"),
-                                })}
-                            />
-                            <Divider />
-                            {data.comment.length > 0 && (
-                                <>
-                                    <CardContent>{data.comment}</CardContent>
-                                    <Divider />
-                                </>
-                            )}
-                            <CardContent>
-                                <Stack spacing={2} className={classes.pay}>
-                                    <QRCodeCanvas value={data.url} />
-                                    <Typography variant={"h6"} component={"span"}>
-                                        {t("请使用 {{payment}} 支付", {
-                                            payment: t(data.payment, { ns: "payment" }),
-                                        })}
-                                    </Typography>
-                                </Stack>
-                            </CardContent>
-                            {isMobile && (
-                                <CardActions>
-                                    <Button
-                                        href={data.url}
-                                        target={"_blank"}
-                                        fullWidth
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            window.open(data.url);
-                                        }}
-                                    >
-                                        {t("捐赠")}
-                                    </Button>
-                                </CardActions>
-                            )}
-                        </Card>
+                        <DonateCard data={data} />
                     )}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>{t("关闭")}</Button>
-                    <Button type={"reset"} onClick={handleRefresh}>
-                        {t("刷新")}
-                    </Button>
+                    <Button onClick={handleDetail}>{t("查看详情")}</Button>
+                    <Button onClick={handleRefresh}>{t("刷新")}</Button>
                 </DialogActions>
             </Dialog>
         </>

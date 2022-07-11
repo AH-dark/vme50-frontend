@@ -19,5 +19,10 @@
   "收款方式": "Payment",
   "参数不完整，请检查": "Incomplete parameters, please check your input",
   "邮箱格式不合法，请检查": "Email format is invalid, please check your input",
-  "已切换语言至 {{lang}}": "Switched language to {{lang}}"
+  "已切换语言至 {{lang}}": "Switched language to {{lang}}",
+  "留言": "Comments",
+  "捐赠者可以看到留言信息，请尽情发挥你的文学功底！": "Donors can see the message, so please give full play to your literary skills!",
+  "Uploaded on {{date}}": "Uploaded on {{date}}",
+  "留言：": "Comment: ",
+  "快给 {{name}} 打钱！": "Send money to {{name}} now!"
 }

@@ -65,7 +65,7 @@ const api = createApi({
                 }),
                 providesTags: ["Setting"],
             }),
-            postDonateInfo: builder.mutation<DonateInfoResponse, FormData>({
+            postDonateInfo: builder.mutation<string, FormData>({
                 query: (data) => ({
                     url: "/donate",
                     method: "POST",

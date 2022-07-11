@@ -35,6 +35,7 @@ import UploadFileRoundedIcon from "@mui/icons-material/UploadFileRounded";
 import { usePostDonateInfoMutation } from "services/api";
 import { AxiosError } from "axios";
 import clsx from "clsx";
+import { useHistory } from "react-router-dom";
 
 const accept = [".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp"];
 
@@ -49,6 +50,7 @@ const initData: DonateInfoRequest = {
 const UploadButton: React.FC = () => {
     const { enqueueSnackbar } = useSnackbar();
     const { t } = useTranslation();
+    const history = useHistory();
     const [postDonateInfo, { isLoading: isPosting }] = usePostDonateInfoMutation();
 
     const [open, setOpen] = useState(false);
@@ -116,6 +118,7 @@ const UploadButton: React.FC = () => {
                     variant: "success",
                 });
                 handleClose();
+                history.push("/donate/" + r);
             })
             .catch((err) => {
                 const error = err as AxiosError<ResponseData<DonateInfoResponse>>;

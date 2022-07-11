@@ -74,13 +74,5 @@
 .donateButtonDialog {
   .dialogContent {
     @include columnCenter;
-
-    .card {
-      width: fit-content;
-
-      .pay {
-        @include columnCenter;
-      }
-    }
   }
 }
