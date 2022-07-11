@@ -54,7 +54,13 @@ const AboutButton: React.FC = () => {
                     </Typography>
                 </Paper>
             </ButtonBase>
-            <Dialog open={open} onClose={handleClose} fullScreen={isMobile} fullWidth={!isMobile}>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                fullScreen={isMobile}
+                fullWidth={!isMobile}
+                keepMounted
+            >
                 <DialogTitle>{t("关于本站")}</DialogTitle>
                 <DialogContent
                     sx={{

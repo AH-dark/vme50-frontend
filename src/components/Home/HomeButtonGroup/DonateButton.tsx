@@ -68,9 +68,10 @@ const DonateButton: React.FC = () => {
             <Dialog
                 open={open}
                 onClose={handleClose}
+                className={classes.donateButtonDialog}
                 fullScreen={isMobile}
                 fullWidth={!isMobile}
-                className={classes.donateButtonDialog}
+                keepMounted
             >
                 <DialogTitle>{t("您找到了有缘人，快赞赏他吧")}</DialogTitle>
                 <DialogContent className={classes.dialogContent}>

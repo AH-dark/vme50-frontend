@@ -168,6 +168,7 @@ const UploadButton: React.FC = () => {
                 className={classes.uploadButtonDialog}
                 fullWidth={!isMobile}
                 fullScreen={isMobile}
+                keepMounted
             >
                 <DialogTitle>{t("上传收款码")}</DialogTitle>
                 <DialogContent>
