@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import styles from "./style.module.scss";
 import dayjs from "dayjs";
-import { QRCodeCanvas } from "qrcode.react";
+import { QRCodeSVG } from "qrcode.react";
 import DonateInfo from "model/base/donateInfo";
 import { useTranslation } from "react-i18next";
 import clsx from "clsx";
@@ -55,7 +55,7 @@ const DonateCard: React.FC<DonateCardProps> = ({ className, data }) => {
             )}
             <CardContent>
                 <Stack spacing={2} className={styles.pay}>
-                    <QRCodeCanvas value={data.url} />
+                    <QRCodeSVG value={data.url} />
                     <Typography variant={"h6"} component={"span"}>
                         {t("请使用 {{payment}} 支付", {
                             payment: t(data.payment, { ns: "payment" }),
