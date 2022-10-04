@@ -21,7 +21,7 @@
     "clsx": "^1.2.0",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.5",
-    "flag-icons": "^6.6.3",
+    "flag-icons": "^6.6.6",
     "i18next": "^21.9.2",
     "i18next-browser-languagedetector": "^6.1.4",
     "i18next-chained-backend": "^3.0.2",

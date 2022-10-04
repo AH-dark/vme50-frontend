@@ -4780,10 +4780,10 @@ find-up@^5.0.0:
     locate-path "^6.0.0"
     path-exists "^4.0.0"
 
-flag-icons@^6.6.3:
-  version "6.6.3"
-  resolved "https://registry.npmmirror.com/flag-icons/-/flag-icons-6.6.3.tgz#57259f305e98ad9e8cba71a14245882878dfc47e"
-  integrity sha512-MXkQ6TQVdjHir8fNE2YEoxyJZh7B2AZLPBr5AnJCzdOEY982Q8Lczy5MUay3OFh1ZofEhuIIPQGRADE42N1B6w==
+flag-icons@^6.6.6:
+  version "6.6.6"
+  resolved "https://registry.yarnpkg.com/flag-icons/-/flag-icons-6.6.6.tgz#9ddff81e1126778ca6a5a1e0e2cfac2e865f2cb7"
+  integrity sha512-4lHDKxldnQ7q617pf9Dx9nAetT+9zcMpUexbRrc9kjLw9KJgZ83zA5Dky3Vv7ZDzUjAiZ46x/cy5P0HnEnqA2A==
 
 flat-cache@^3.0.4:
   version "3.0.4"
